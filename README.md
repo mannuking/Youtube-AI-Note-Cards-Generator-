@@ -12,7 +12,12 @@ This Streamlit app extracts the transcript from a YouTube video and generates co
 
 ### 1. Clone the Repository
 
-Unzip the provided ZIP file into your desired directory.
+Clone the repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
 
 ### 2. Create and Activate a Virtual Environment (Recommended)
 
@@ -34,6 +39,8 @@ source venv/bin/activate
 
 ### 3. Install the Required Packages
 
+Install the necessary Python packages using the requirements file.
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -47,6 +54,8 @@ YOUR_API_KEY=your_google_gemini_pro_api_key
 ```
 
 ### 5. Run the Streamlit App
+
+Start the Streamlit app with the following command:
 
 ```bash
 streamlit run app.py
@@ -290,7 +299,11 @@ if youtube_link:
         st.error("Failed to extract video ID from the URL.")
 ```
 
+## Conclusion
 
-If you encounter any issues or have questions, please contact us for further guidance.
+By following these instructions, you should be able to set up and run the Streamlit app on your system. If you encounter any issues, please feel free to ask for further assistance.
 janhvi0802@gmail.com & jk422331@gmail.com
 Happy experimenting!
+
+---
+
