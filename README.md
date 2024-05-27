@@ -1,4 +1,4 @@
-# YouTube Video to Note Cards
+# 📚YouTube Video to Note Cards🎓
 
 This Streamlit app extracts the transcript from a YouTube video and generates concise and insightful note cards using Google Gemini Pro.
 
