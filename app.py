@@ -5,7 +5,7 @@ from google.cloud import language_v1
 from youtube_transcript_api import YouTubeTranscriptApi
 import re
 import random
-import google.generativeai as genai
+# import google.generativeai as genai
 import base64
 
 def analyze_text(text):
