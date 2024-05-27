@@ -290,8 +290,5 @@ if youtube_link:
         st.error("Failed to extract video ID from the URL.")
 ```
 
-## Conclusion
 
-By following these instructions, Janhvi should be able to set up and run the Streamlit app on her system. If you encounter any issues, please feel free to ask for further assistance.
 
----
