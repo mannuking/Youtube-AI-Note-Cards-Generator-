@@ -2,4 +2,5 @@ streamlit==1.18.1
 python-dotenv==0.19.1
 google==3.0.0
 google-api-python-client
+google-cloud-language
 youtube_transcript_api==0.4.1
