@@ -1,12 +1,19 @@
 import streamlit as st
 from dotenv import load_dotenv
 import os
-import google.generativeai as genai
+from google.cloud import language_v1
 from youtube_transcript_api import YouTubeTranscriptApi
 import re
 import random
+import google.generativeai as genai
 import base64
 
+def analyze_text(text):
+    client = language_v1.LanguageServiceClient()
+    document = language_v1.Document(content=text, type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = client.analyze_sentiment(document=document)
+    return response
+    
 st.set_page_config(page_title="YouTube Note Cards", page_icon="hi7.png", layout="wide")
 
 # Load environment variables
