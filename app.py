@@ -5,7 +5,7 @@ from google.cloud import language_v1
 from youtube_transcript_api import YouTubeTranscriptApi
 import re
 import random
-# import google.generativeai as genai
+import google.generativeai as genai
 import base64
 
 def analyze_text(text):
@@ -23,7 +23,12 @@ if not api_key:
     st.error("API key not found. Please set up your environment variable correctly.")
     st.stop()
 
-genai.configure(api_key=api_key)  # Use the actual API key
+# Ensure the google.generativeai module is configured correctly
+try:
+    genai.configure(api_key=api_key)  # Use the actual API key
+except Exception as e:
+    st.error(f"Error configuring Google Generative AI: {e}")
+    st.stop()
 
 # --- Functions ---
 
