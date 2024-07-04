@@ -55,8 +55,8 @@ def extract_transcript_details(video_id):
 def generate_note_cards_from_transcript(full_transcript, keywords):
     """Generates note cards focused on keywords using Google Gemini Pro."""
     prompt = f"""
-    You are an advanced educational assistant with deep understanding of content analysis and summarization. 
-    Your task is to create detailed and informative note cards from a YouTube video transcript, focusing specifically on the given keywords.
+    You are an advanced educational assistant with a deep understanding of content analysis and summarization. 
+    Your task is to create detailed, engaging, and informative note cards from a YouTube video transcript, focusing specifically on the given keywords.
 
     Here is the full transcript of the video:
     "{full_transcript}"
@@ -66,10 +66,11 @@ def generate_note_cards_from_transcript(full_transcript, keywords):
     Your goal is to produce a set of comprehensive and concise note cards based on this transcript. Each note card should:
     1. Highlight the most important concepts, facts, or ideas mentioned in the video.
     2. Provide clear and brief explanations for each highlighted concept or fact.
-    3. Be written in simple, easy-to-understand language.
-    4. Focus specifically on the provided keywords to ensure relevance.
+    3. Include bullet points, sub-points, and examples where relevant to enhance understanding.
+    4. Be written in simple, easy-to-understand language that is also engaging and catchy.
+    5. Focus specifically on the provided keywords to ensure relevance.
 
-    Ensure that you generate a minimum of 8 and a maximum of 12 note cards. Each note card should cover unique content from the transcript, ensuring that the entire video is comprehensively summarized. The note cards should be highly informative and directly related to the content of the video.
+    Ensure that you generate a minimum of 8 and a maximum of 12 note cards. Each note card should cover unique content from the transcript, ensuring that the entire video is comprehensively summarized. The note cards should be highly informative, engaging, and directly related to the content of the video.
 
     Please start by creating the note cards based on the above guidelines.
     """
@@ -80,6 +81,7 @@ def generate_note_cards_from_transcript(full_transcript, keywords):
     except Exception as e:
         st.error(f"Error generating note card content: {e}")
         return None
+
 
 def format_note_cards(note_cards_content):
     """Formats the note cards content into HTML for display."""
@@ -112,7 +114,7 @@ def add_bg_from_local(image_file):
     }}
 
     .main {{  /* Added to target the main content area */
-        background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0);  /* Semi-transparent white background */
         padding: 20px;
         border-radius: 10px; /* Optional rounded corners */
         margin: 80px auto; /* Center the container horizontally */
@@ -225,4 +227,3 @@ if youtube_link:
                         st.error("Failed to generate note cards.")
     else:
         st.error("Failed to extract video ID from the URL.")
-#hi
