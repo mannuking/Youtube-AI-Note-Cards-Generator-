@@ -52,21 +52,26 @@ def extract_transcript_details(video_id):
         st.error(f"Error extracting transcript: {e}")
         return None
 
-def generate_note_cards_from_transcript(full_transcript):
-    """Generates note cards content using Google Gemini Pro from the full transcript."""
-    prompt = f"""You are an educational assistant helping to create concise and insightful 
-    note cards from a YouTube video transcript. 
+def generate_note_cards_from_transcript(full_transcript, keywords):
+    """Generates note cards focused on keywords using Google Gemini Pro."""
+    prompt = f"""
+    You are an advanced educational assistant with deep understanding of content analysis and summarization. 
+    Your task is to create detailed and informative note cards from a YouTube video transcript, focusing specifically on the given keywords.
 
-    Here is the full transcript:
-
+    Here is the full transcript of the video:
     "{full_transcript}"
 
-    Create small, easy-to-understand note cards that are useful for learning. Each note card should:
-    * Highlight the most important concepts or facts.
-    * Provide brief explanations for each concept or fact.
-    * Be concise and written in simple language.
+    Keywords: {keywords}
 
-    Please generate several note cards based on the above transcript.
+    Your goal is to produce a set of comprehensive and concise note cards based on this transcript. Each note card should:
+    1. Highlight the most important concepts, facts, or ideas mentioned in the video.
+    2. Provide clear and brief explanations for each highlighted concept or fact.
+    3. Be written in simple, easy-to-understand language.
+    4. Focus specifically on the provided keywords to ensure relevance.
+
+    Ensure that you generate a minimum of 8 and a maximum of 12 note cards. Each note card should cover unique content from the transcript, ensuring that the entire video is comprehensively summarized. The note cards should be highly informative and directly related to the content of the video.
+
+    Please start by creating the note cards based on the above guidelines.
     """
     try:
         model = genai.GenerativeModel("gemini-pro")
@@ -127,6 +132,18 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
+# Custom CSS for input box design
+st.markdown(
+    """
+    <style>
+    .stTextInput > div > div > input {
+        background-color: rgba(3, 3, 3, 0.22) !important;
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Add background image (replace 'your_background_image.png' with your actual image path)
 add_bg_from_local('hi5.jpg')
@@ -181,26 +198,31 @@ if youtube_link:
     if video_id:
         st.video(f"https://www.youtube.com/watch?v={video_id}")
 
+        # Keyword input
+        keywords = st.text_input("Enter keywords (comma-separated):") 
+
         if st.button("Generate Note Cards"):
             with st.spinner("Extracting transcript..."):
                 full_transcript = extract_transcript_details(video_id)
 
             if full_transcript:
                 with st.spinner("Generating note cards..."):
-                    note_cards_content = generate_note_cards_from_transcript(full_transcript)
-                if note_cards_content:
-                    formatted_note_cards = format_note_cards(note_cards_content)
-                    st.markdown("## Note Cards:")
-                    # Adjust the number of note cards based on video length
-                    min_cards = 5
-                    max_cards = 10
-                    video_length = len(full_transcript.split())
-                    num_cards = min(max(min_cards, int(video_length / 200)), max_cards)
-                    for card in formatted_note_cards[:num_cards]:
-                        st.markdown(card, unsafe_allow_html=True)
-                else:
-                    st.error("Failed to generate note cards.")
+                    # Pass keywords to the note generation function
+                    note_cards_content = generate_note_cards_from_transcript(
+                        full_transcript, keywords
+                    )
+                    if note_cards_content:
+                        formatted_note_cards = format_note_cards(note_cards_content)
+                        st.markdown("## Note Cards:")
+                        # Adjust the number of note cards based on video length
+                        min_cards = 8
+                        max_cards = 12
+                        video_length = len(full_transcript.split())
+                        num_cards = min(max(min_cards, int(video_length / 200)), max_cards)
+                        for card in formatted_note_cards[:num_cards]:
+                            st.markdown(card, unsafe_allow_html=True)
+                    else:
+                        st.error("Failed to generate note cards.")
     else:
         st.error("Failed to extract video ID from the URL.")
-
-#thatsall
+#hi
