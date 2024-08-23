@@ -55,8 +55,9 @@ def extract_transcript_details(video_id):
 def generate_note_cards_from_transcript(full_transcript, keywords):
     """Generates note cards focused on keywords using Google Gemini Pro."""
     prompt = f"""
-    You are an advanced educational assistant with a deep understanding of content analysis and summarization. 
-    Your task is to create detailed, engaging, and informative note cards from a YouTube video transcript, focusing specifically on the given keywords.
+    You are an advanced educational assistant with a deep understanding of content analysis, summarization, and programming. 
+    Your task is to create detailed, engaging, and informative note cards from a YouTube video transcript, focusing specifically on the given keywords. 
+    If the video is programming-related, you should also identify and extract any code snippets, providing a clear and accurate representation of the code.
 
     Here is the full transcript of the video:
     "{full_transcript}"
@@ -65,15 +66,17 @@ def generate_note_cards_from_transcript(full_transcript, keywords):
 
     Your goal is to produce a set of comprehensive and concise note cards based on this transcript. Each note card should:
     1. Highlight the most important concepts, facts, or ideas mentioned in the video.
-    2. Provide clear and brief explanations for each highlighted concept or fact.
-    3. Include bullet points, sub-points, and examples where relevant to enhance understanding.
-    4. Be written in simple, easy-to-understand language that is also engaging and catchy.
-    5. Focus specifically on the provided keywords to ensure relevance.
+    2. If applicable, identify and extract any code snippets, ensuring that the code is formatted correctly and clearly separated from the rest of the content.
+    3. Provide clear and brief explanations for each highlighted concept or fact.
+    4. Include bullet points, sub-points, and examples where relevant to enhance understanding.
+    5. Be written in simple, easy-to-understand language that is also engaging and catchy.
+    6. Focus specifically on the provided keywords to ensure relevance.
 
     Ensure that you generate a minimum of 8 and a maximum of 12 note cards. Each note card should cover unique content from the transcript, ensuring that the entire video is comprehensively summarized. The note cards should be highly informative, engaging, and directly related to the content of the video.
 
-    Please start by creating the note cards based on the above guidelines.
+    Please start by creating the note cards based on the above guidelines, and include any code snippets if they are present in the video.
     """
+
     try:
         model = genai.GenerativeModel("gemini-pro")
         response = model.generate_content(prompt)
